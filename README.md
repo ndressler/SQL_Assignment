@@ -1,74 +1,14 @@
-# Data analysis
-- Document here the project: SQL_Assignment
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+# Project: SQL_Assignment
+  - Data manipulation with Python and SQL
 
-Please document the project the better you can.
+# Description & Steps
+  - This entire project is available in: https://github.com/ndressler/SQL_Assignment
+  - Virtual env and project repository were created;
+  - Tables in the word file given by the challenge were written into TXT files for data analysis;
+  - Txt files were stored as dataframes in csv files to later be added to a database ;
+  - The previous files are stored in the 'raw_data' file;
+  - The website https://inloop.github.io/sqlite-viewer/ was the mean used to visualize the database created in SQLite;
 
-# Startup the project
-
-The initial setup.
-
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
-```
-
-Unittest test:
-```bash
-make clean install test
-```
-
-Check for SQL_Assignment in gitlab.com/{group}.
-If your project is not set please add it:
-
-- Create a new project on `gitlab.com/{group}/SQL_Assignment`
-- Then populate it:
-
-```bash
-##   e.g. if group is "{group}" and project_name is "SQL_Assignment"
-git remote add origin git@github.com:{group}/SQL_Assignment.git
-git push -u origin master
-git push -u origin --tags
-```
-
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-SQL_Assignment-run
-```
-
-# Install
-
-Go to `https://github.com/{group}/SQL_Assignment` to see the project, manage issues,
-setup you ssh public key, ...
-
-Create a python3 virtualenv and activate it:
-
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
-```
-
-Clone the project and install it:
-
-```bash
-git clone git@github.com:{group}/SQL_Assignment.git
-cd SQL_Assignment
-pip install -r requirements.txt
-make clean install test                # install and test
-```
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-SQL_Assignment-run
-```
+# Code function:
+  - When executed, the file data.py converts all the txt files into csv and further creates a database to be manipulated and analysed.
+  - The file exercise.py has all the exercise questions and pertinent answers (SQL queries).
