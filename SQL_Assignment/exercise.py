@@ -16,7 +16,7 @@ WHERE sales.date = '2016-01-01' AND sales.product_id = (
     )
 ''')
 tomatoes_1stjan = c.fetchall()
-print('How many tomatoes were sold during Jan 1st, 2016?\n' + str(tomatoes_1stjan[0][0]))
+print('How many tomatoes were sold during Jan 1st, 2016?\n' + str(tomatoes_1stjan[0][1]))
 
 
 
@@ -65,15 +65,36 @@ print(dupl)
 
 # Display the 2nd most paid product every day.
 c.execute('''
-SELECT product_id, MAX (paid_amount), date
-FROM sales a
-WHERE product_id NOT IN (SELECT Max (paid_amount)
-                          FROM sales b
-Where a.product_id = b.product_id
-And a.date = b.date
-Group by date)
-
+SELECT date, product_id, MAX(soma)
+FROM (
+    SELECT a.date, a.product_id, SUM(a.paid_amount) soma
+    FROM sales AS a, (
+        SELECT MAX(soma), date, product_id
+        FROM (
+            SELECT SUM(paid_amount) soma, date, product_id
+            FROM 'Sales'
+            GROUP BY date, product_id
+            ORDER BY date, soma DESC
+            )
+        GROUP BY date
+        ) AS top1
+    WHERE a.date = top1.date
+    AND a.product_id <> top1.product_id
+    GROUP BY a.date, a.product_id
+    )
+GROUP BY date
 ''')
-2ndpaid = c.fetchall()
-print('\nAmount of duplicates:')
-print(2ndpaid)
+# we get the first most paid, and exclude it from a new table
+# and then get the max again (therefore, the 2nd highest)
+
+# bette to use FROM wheter then NOT IN for performance
+# FROM creates a temporary table to compar all info to
+# NOT IN creates a new table for each registry comparison, making it slower
+
+# WHERE date = date must be there to allow for the comparison to be filtered by day,
+# otherwise the max value could be counted as being top 1 for the month, not each day
+# it makes the restriction per day
+
+top2day = c.fetchall()
+print('\nSecond most sold product in each day:')
+print(top2day)
